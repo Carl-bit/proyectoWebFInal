@@ -1,0 +1,53 @@
+drop table usuario
+create table usuario(
+	user_id serial PRIMARY KEY,
+	email_user varchar(150) not null,
+	pass varchar(100) not null,
+	duenio_id integer
+);
+
+
+drop table duenio
+create table duenio(
+	duenio_id serial PRIMARY KEY,
+	gato_id integer,
+	nombre varchar(100) not null,
+	edad varchar(5) not null,
+	direccion varchar(150) not null,
+	genero varchar(100) not null,
+	email varchar(200) not null
+);
+
+drop table gatos
+create table gatos(
+	id_gatos serial PRIMARY KEY,
+	diag_id varchar(500),
+	nombre varchar(100) not null,
+	edad varchar(200) not null
+);
+
+
+alter table usuario add constraint fk_id_user foreign key (duenio_id) references duenio (duenio_id) 
+alter table duenio add constraint fk_id_gato foreign key (gato_id) references gatos (id_gatos) 
+
+insert into usuario(email_user,pass) values ('jimenez200050@gmail.com','1234');
+insert into usuario(email_user,pass) values ('kenai301@gmail.com','4567');
+insert into usuario(email_user,pass) values ('halfporcent@gmail.com','7890');
+select * from usuario
+
+insert into duenio(nombre,edad,direccion,genero,email) values ('Carlos',22,'Ramaditas 255','Masculino','jimenez200050@gmail.com');
+insert into duenio(nombre,edad,direccion,genero,email) values ('Sebastian',23,'Concha y Toro 63','Masculino','kenai301@gmail.com');
+insert into duenio(nombre,edad,direccion,genero,email) values ('German',23,'Haddonfield 301','Masculino','halfporcent@gmail.com');
+select * from duenio
+
+insert into gatos(nombre,edad) values ('Josuke','6 meses');
+insert into gatos(nombre,edad) values ('Sr. Bigotes','1 año 4 meses');
+insert into gatos(nombre,edad) values ('Trufas','1 año 6 meses');
+insert into gatos(nombre,edad) values ('Mr. Guantecillo','9 meses');
+
+select * from gatos
+
+
+select d.nombre,d.edad,ga.nombre,ga.edad,d.direccion,d.email from duenios as d,gatos as ga where d.gato_id = ga.id_gatos 
+
+
